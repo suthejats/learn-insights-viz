@@ -15,6 +15,10 @@ import { AttentionPerformanceScatter } from "./AttentionPerformanceScatter";
 import { StudentRadarProfile } from "./StudentRadarProfile";
 import { StudentsTable } from "./StudentsTable";
 import { InsightsSection } from "./InsightsSection";
+import { GradeDistributionChart } from "./GradeDistributionChart";
+import { AttendanceChart } from "./AttendanceChart";
+import { SubjectPerformanceChart } from "./SubjectPerformanceChart";
+import { StudentCountByGrade } from "./StudentCountByGrade";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -120,9 +124,24 @@ export const Dashboard = () => {
 
           <TabsContent value="overview" className="space-y-6">
             <OverviewStats students={students} />
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <SkillPerformanceChart students={students} />
-              <AttentionPerformanceScatter students={students} />
+            
+            {/* Main Dashboard Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Left Column - 2/3 width */}
+              <div className="lg:col-span-2 space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <GradeDistributionChart students={students} />
+                  <AttendanceChart students={students} />
+                </div>
+                <SubjectPerformanceChart students={students} />
+                <SkillPerformanceChart students={students} />
+              </div>
+              
+              {/* Right Column - 1/3 width */}
+              <div className="space-y-6">
+                <StudentCountByGrade students={students} />
+                <AttentionPerformanceScatter students={students} />
+              </div>
             </div>
           </TabsContent>
 
