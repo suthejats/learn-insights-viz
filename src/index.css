@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 210 17% 98%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -17,7 +17,7 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 210 100% 50%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -26,17 +26,42 @@ All colors MUST be HSL.
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 180 100% 35%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 210 100% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* Education Dashboard Colors */
+    --education-blue: 210 100% 50%;
+    --education-teal: 180 100% 35%;
+    --education-green: 142 76% 36%;
+    --education-purple: 250 100% 60%;
+    --education-orange: 25 95% 53%;
+    
+    /* Performance Colors */
+    --performance-excellent: 142 76% 36%;
+    --performance-good: 45 93% 47%;
+    --performance-average: 25 95% 53%;
+    --performance-poor: 0 84% 60%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--education-blue)), hsl(var(--education-teal)));
+    --gradient-performance: linear-gradient(90deg, hsl(var(--performance-poor)), hsl(var(--performance-average)), hsl(var(--performance-good)), hsl(var(--performance-excellent)));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(210 17% 98%));
+    
+    /* Shadows */
+    --shadow-card: 0 4px 6px -1px hsl(210 100% 50% / 0.1), 0 2px 4px -1px hsl(210 100% 50% / 0.06);
+    --shadow-hover: 0 10px 15px -3px hsl(210 100% 50% / 0.1), 0 4px 6px -2px hsl(210 100% 50% / 0.05);
+    
+    /* Animation */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
     --sidebar-background: 0 0% 98%;
 

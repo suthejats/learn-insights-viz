@@ -47,6 +47,19 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        education: {
+          blue: "hsl(var(--education-blue))",
+          teal: "hsl(var(--education-teal))",
+          green: "hsl(var(--education-green))",
+          purple: "hsl(var(--education-purple))",
+          orange: "hsl(var(--education-orange))",
+        },
+        performance: {
+          excellent: "hsl(var(--performance-excellent))",
+          good: "hsl(var(--performance-good))",
+          average: "hsl(var(--performance-average))",
+          poor: "hsl(var(--performance-poor))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
