@@ -1,14 +1,5 @@
 import { useState, useEffect } from "react";
-import { 
-  generateStudentData, 
-  addMLPredictions, 
-  assignLearningPersonas, 
-  calculateCorrelations,
-  getLearningPersonaStats,
-  Student,
-  SkillCorrelation,
-  LearningPersona
-} from "@/data/studentData";
+import { generateStudentData, addMLPredictions, assignLearningPersonas, calculateCorrelations, getLearningPersonaStats, Student, SkillCorrelation, LearningPersona } from "@/data/studentData";
 import { OverviewStats } from "./OverviewStats";
 import { SkillPerformanceChart } from "./SkillPerformanceChart";
 import { AttentionPerformanceScatter } from "./AttentionPerformanceScatter";
@@ -23,55 +14,46 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { BarChart3, Users, Brain, Table, Lightbulb } from "lucide-react";
-
 export const Dashboard = () => {
   const [students, setStudents] = useState<Student[]>([]);
   const [correlations, setCorrelations] = useState<SkillCorrelation[]>([]);
   const [personas, setPersonas] = useState<LearningPersona[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     // Simulate data loading
     const loadData = async () => {
       setIsLoading(true);
-      
+
       // Generate synthetic data
       let studentData = generateStudentData();
-      
+
       // Add ML predictions
       studentData = addMLPredictions(studentData);
-      
+
       // Assign learning personas
       studentData = assignLearningPersonas(studentData);
-      
+
       // Calculate correlations
       const skillCorrelations = calculateCorrelations(studentData);
-      
+
       // Get persona statistics
       const personaStats = getLearningPersonaStats(studentData);
-      
       setStudents(studentData);
       setCorrelations(skillCorrelations);
       setPersonas(personaStats);
       setIsLoading(false);
     };
-
     loadData();
   }, []);
-
   if (isLoading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
+    return <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-education-blue mx-auto mb-4"></div>
           <p className="text-muted-foreground">Loading student performance data...</p>
         </div>
-      </div>
-    );
+      </div>;
   }
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-40">
         <div className="container mx-auto px-6 py-4">
@@ -85,9 +67,7 @@ export const Dashboard = () => {
               </p>
             </div>
             <div className="flex items-center space-x-2">
-              <Badge variant="secondary" className="bg-education-blue/10 text-education-blue">
-                ML Enabled
-              </Badge>
+              
               <Badge variant="secondary">
                 {students.length} Students
               </Badge>
@@ -161,28 +141,26 @@ export const Dashboard = () => {
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {personas.map((persona, index) => (
-                    <div key={index} className="p-4 border border-border rounded-lg">
+                  {personas.map((persona, index) => <div key={index} className="p-4 border border-border rounded-lg">
                       <div className="flex items-center justify-between mb-2">
                         <h3 className="font-semibold">{persona.name}</h3>
-                        <Badge style={{ backgroundColor: persona.color }} className="text-white">
+                        <Badge style={{
+                      backgroundColor: persona.color
+                    }} className="text-white">
                           {persona.count}
                         </Badge>
                       </div>
                       <p className="text-sm text-muted-foreground mb-3">{persona.description}</p>
                       <div className="space-y-1">
-                        {persona.characteristics.map((char, charIndex) => (
-                          <div key={charIndex} className="text-xs bg-muted/50 px-2 py-1 rounded">
+                        {persona.characteristics.map((char, charIndex) => <div key={charIndex} className="text-xs bg-muted/50 px-2 py-1 rounded">
                             {char}
-                          </div>
-                        ))}
+                          </div>)}
                       </div>
                       <div className="mt-3 text-sm">
                         <span className="text-muted-foreground">Avg Score: </span>
                         <span className="font-semibold">{persona.avgScore}%</span>
                       </div>
-                    </div>
-                  ))}
+                    </div>)}
                 </div>
               </CardContent>
             </Card>
@@ -193,14 +171,9 @@ export const Dashboard = () => {
           </TabsContent>
 
           <TabsContent value="insights" className="space-y-6">
-            <InsightsSection 
-              students={students} 
-              correlations={correlations} 
-              personas={personas} 
-            />
+            <InsightsSection students={students} correlations={correlations} personas={personas} />
           </TabsContent>
         </Tabs>
       </main>
-    </div>
-  );
+    </div>;
 };
