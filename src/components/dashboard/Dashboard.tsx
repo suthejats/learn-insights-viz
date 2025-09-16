@@ -10,6 +10,9 @@ import { GradeDistributionChart } from "./GradeDistributionChart";
 import { AttendanceChart } from "./AttendanceChart";
 import { SubjectPerformanceChart } from "./SubjectPerformanceChart";
 import { StudentCountByGrade } from "./StudentCountByGrade";
+import { GenderSectionChart } from "./GenderSectionChart";
+import { SubjectScoreGauges } from "./SubjectScoreGauges";
+import { SectionAnalytics } from "./SectionAnalytics";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -53,9 +56,9 @@ export const Dashboard = () => {
         </div>
       </div>;
   }
-  return <div className="min-h-screen bg-background">
+  return <div className="min-h-screen">
       {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-40">
+      <header className="border-b border-border bg-card/80 backdrop-blur-lg sticky top-0 z-40 animate-slide-in-up">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
@@ -79,58 +82,86 @@ export const Dashboard = () => {
       {/* Main Content */}
       <main className="container mx-auto px-6 py-8">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-5 lg:w-fit">
-            <TabsTrigger value="overview" className="flex items-center gap-2">
+          <TabsList className="grid w-full grid-cols-5 lg:w-fit animate-fade-in">
+            <TabsTrigger value="overview" className="flex items-center gap-2 animate-stagger-1">
               <BarChart3 className="h-4 w-4" />
               Overview
             </TabsTrigger>
-            <TabsTrigger value="analytics" className="flex items-center gap-2">
+            <TabsTrigger value="analytics" className="flex items-center gap-2 animate-stagger-2">
               <Brain className="h-4 w-4" />
               Analytics
             </TabsTrigger>
-            <TabsTrigger value="profiles" className="flex items-center gap-2">
+            <TabsTrigger value="profiles" className="flex items-center gap-2 animate-stagger-3">
               <Users className="h-4 w-4" />
               Profiles
             </TabsTrigger>
-            <TabsTrigger value="table" className="flex items-center gap-2">
+            <TabsTrigger value="table" className="flex items-center gap-2 animate-stagger-4">
               <Table className="h-4 w-4" />
               Students
             </TabsTrigger>
-            <TabsTrigger value="insights" className="flex items-center gap-2">
+            <TabsTrigger value="insights" className="flex items-center gap-2 animate-stagger-5">
               <Lightbulb className="h-4 w-4" />
               Insights
             </TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
-            <OverviewStats students={students} />
+            <div className="animate-slide-in-up">
+              <OverviewStats students={students} />
+            </div>
+            
+            {/* Subject Score Gauges */}
+            <div className="animate-slide-in-left animate-stagger-1">
+              <SubjectScoreGauges students={students} />
+            </div>
             
             {/* Main Dashboard Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               {/* Left Column - 2/3 width */}
               <div className="lg:col-span-2 space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <GradeDistributionChart students={students} />
-                  <AttendanceChart students={students} />
+                  <div className="animate-slide-in-left animate-stagger-2">
+                    <GenderSectionChart students={students} />
+                  </div>
+                  <div className="animate-slide-in-right animate-stagger-2">
+                    <AttendanceChart students={students} />
+                  </div>
                 </div>
-                <SubjectPerformanceChart students={students} />
-                <SkillPerformanceChart students={students} />
+                <div className="animate-slide-in-up animate-stagger-3">
+                  <SubjectPerformanceChart students={students} />
+                </div>
+                <div className="animate-slide-in-left animate-stagger-4">
+                  <SectionAnalytics students={students} />
+                </div>
               </div>
               
               {/* Right Column - 1/3 width */}
               <div className="space-y-6">
-                <StudentCountByGrade students={students} />
-                <AttentionPerformanceScatter students={students} />
+                <div className="animate-slide-in-right animate-stagger-2">
+                  <StudentCountByGrade students={students} />
+                </div>
+                <div className="animate-slide-in-right animate-stagger-3">
+                  <AttentionPerformanceScatter students={students} />
+                </div>
               </div>
             </div>
           </TabsContent>
 
           <TabsContent value="analytics" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <SkillPerformanceChart students={students} />
-              <AttentionPerformanceScatter students={students} />
+              <div className="animate-slide-in-left">
+                <SkillPerformanceChart students={students} />
+              </div>
+              <div className="animate-slide-in-right">
+                <GenderSectionChart students={students} />
+              </div>
             </div>
-            <StudentRadarProfile students={students} />
+            <div className="animate-slide-in-up animate-stagger-2">
+              <SectionAnalytics students={students} />
+            </div>
+            <div className="animate-fade-in animate-stagger-3">
+              <StudentRadarProfile students={students} />
+            </div>
           </TabsContent>
 
           <TabsContent value="profiles" className="space-y-6">

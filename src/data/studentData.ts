@@ -2,6 +2,8 @@ export interface Student {
   student_id: string;
   name: string;
   class: string;
+  section: string;
+  gender: 'Male' | 'Female';
   comprehension: number;
   attention: number;
   focus: number;
@@ -10,6 +12,14 @@ export interface Student {
   engagement_time: number;
   predicted_score?: number;
   learning_persona?: string;
+  subjects: {
+    english: number;
+    mathematics: number;
+    science: number;
+    arts: number;
+    physical_education: number;
+  };
+  attendance_rate: number;
 }
 
 export interface SkillCorrelation {
@@ -29,15 +39,22 @@ export interface LearningPersona {
 
 // Generate synthetic student data
 export const generateStudentData = (): Student[] => {
-  const firstNames = ['Emma', 'Liam', 'Olivia', 'Noah', 'Ava', 'Oliver', 'Sofia', 'Elijah', 'Charlotte', 'William', 'Amelia', 'James', 'Isabella', 'Benjamin', 'Mia', 'Lucas', 'Harper', 'Henry', 'Evelyn', 'Alexander', 'Abigail', 'Mason', 'Emily', 'Michael', 'Elizabeth', 'Ethan', 'Mila', 'Daniel', 'Ella', 'Jacob'];
+  const maleNames = ['Liam', 'Noah', 'Oliver', 'Elijah', 'William', 'James', 'Benjamin', 'Lucas', 'Henry', 'Alexander', 'Mason', 'Michael', 'Ethan', 'Daniel', 'Jacob', 'Logan', 'Jackson', 'Levi', 'Sebastian', 'Mateo', 'Jack', 'Owen', 'Theodore', 'Aiden', 'Samuel'];
+  const femaleNames = ['Emma', 'Olivia', 'Ava', 'Sofia', 'Charlotte', 'Amelia', 'Isabella', 'Mia', 'Harper', 'Evelyn', 'Abigail', 'Emily', 'Elizabeth', 'Mila', 'Ella', 'Avery', 'Camila', 'Aria', 'Scarlett', 'Victoria', 'Madison', 'Luna', 'Grace', 'Chloe', 'Penelope'];
   const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin', 'Lee', 'Perez', 'Thompson', 'White', 'Harris', 'Sanchez', 'Clark', 'Ramirez', 'Lewis', 'Robinson'];
-  const classes = ['10A', '10B', '10C', '11A', '11B', '11C', '12A', '12B', '12C'];
+  const grades = ['10', '11', '12'];
+  const sections = ['A', 'B', 'C', 'D'];
   
   const students: Student[] = [];
   
   for (let i = 0; i < 150; i++) {
-    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+    const gender = Math.random() > 0.5 ? 'Male' : 'Female';
+    const firstName = gender === 'Male' 
+      ? maleNames[Math.floor(Math.random() * maleNames.length)]
+      : femaleNames[Math.floor(Math.random() * femaleNames.length)];
     const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+    const grade = grades[Math.floor(Math.random() * grades.length)];
+    const section = sections[Math.floor(Math.random() * sections.length)];
     
     // Generate correlated cognitive skills (some students are naturally better across all areas)
     const baseAbility = 0.3 + Math.random() * 0.7; // 0.3 to 1.0
@@ -55,16 +72,37 @@ export const generateStudentData = (): Student[] => {
     const skillAverage = (comprehension + attention + focus + retention) / 4;
     const assessment_score = Math.max(0, Math.min(100, skillAverage + (Math.random() - 0.5) * 20));
     
+    // Generate subject scores with some correlation to cognitive skills
+    const subjectVariation = () => (Math.random() - 0.5) * 30;
+    const english = Math.max(0, Math.min(100, skillAverage + subjectVariation()));
+    const mathematics = Math.max(0, Math.min(100, skillAverage + subjectVariation()));
+    const science = Math.max(0, Math.min(100, skillAverage + subjectVariation()));
+    const arts = Math.max(0, Math.min(100, skillAverage + subjectVariation()));
+    const physical_education = Math.max(0, Math.min(100, skillAverage + subjectVariation()));
+    
+    // Generate attendance rate (85-100%)
+    const attendance_rate = 85 + Math.random() * 15;
+
     students.push({
       student_id: `STU${String(i + 1).padStart(3, '0')}`,
       name: `${firstName} ${lastName}`,
-      class: classes[Math.floor(Math.random() * classes.length)],
+      class: `${grade}${section}`,
+      section: section,
+      gender: gender,
       comprehension: Math.round(comprehension),
       attention: Math.round(attention),
       focus: Math.round(focus),
       retention: Math.round(retention),
       assessment_score: Math.round(assessment_score),
-      engagement_time: Math.round(engagement_time)
+      engagement_time: Math.round(engagement_time),
+      subjects: {
+        english: Math.round(english),
+        mathematics: Math.round(mathematics),
+        science: Math.round(science),
+        arts: Math.round(arts),
+        physical_education: Math.round(physical_education)
+      },
+      attendance_rate: Math.round(attendance_rate * 10) / 10
     });
   }
   
